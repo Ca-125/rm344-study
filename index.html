@@ -615,11 +615,38 @@
       font-weight: 700;
       font-size: 15px;
       letter-spacing: 0.5px;
+      flex: 1;
+      text-align: center;
     }
     .mobile-header .mobile-timer {
       font-size: 12px;
       color: #93c5fd;
       white-space: nowrap;
+    }
+    .back-home-btn {
+      display: none;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 20px;
+      line-height: 1;
+      border-radius: 8px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .back-home-btn:active { background: rgba(255,255,255,0.3); }
+    .topbar .back-home-btn {
+      background: var(--accent, #4a90d9);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
     }
     .mobile-overlay {
       display: none;
@@ -833,12 +860,16 @@
         <button class="hamburger" aria-label="打开菜单" onclick="toggleSidebar()">
           <span></span><span></span><span></span>
         </button>
+        <button class="back-home-btn" id="mobile-back-btn" onclick="goHome()" aria-label="返回首页">←</button>
         <div class="mobile-title" onclick="goHome()" style="cursor:pointer">344备考台</div>
         <div class="mobile-timer"><span id="mobile-timer-min">0</span>min</div>
       </div>
 
       <div class="topbar">
-        <h1 id="page-title">试听与导学</h1>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="back-home-btn" id="desktop-back-btn" onclick="goHome()" aria-label="返回首页" style="display:none">←</button>
+          <h1 id="page-title">试听与导学</h1>
+        </div>
         <div class="topbar-actions">
           <div class="study-timer">
             <span>今日投入：<strong id="today-min">0</strong> / 60 分钟</span>
@@ -3799,6 +3830,8 @@
     const templatesView = document.getElementById('templates-view');
     const homeView = document.getElementById('home-view');
     const zhongjiView = document.getElementById('zhongji-view');
+    const mobileBackBtn = document.getElementById('mobile-back-btn');
+    const desktopBackBtn = document.getElementById('desktop-back-btn');
     const pageTitle = document.getElementById('page-title');
     const statVideos = document.getElementById('stat-videos');
 
@@ -3880,7 +3913,7 @@
             }
           });
           alert('已尝试匹配并保存 ' + data.length + ' 条链接，请检查各模块"去学习"按钮是否已更新。');
-          var activeLi = document.querySelector('.system-nav li.active');
+          var activeLi = document.querySelector('#system-nav li.active');
           if (activeLi) renderVideos(activeLi.dataset.system);
           return;
         }
@@ -3907,7 +3940,7 @@
         }
       });
       alert('已解析并保存 ' + count + ' 条链接。');
-      var activeLi2 = document.querySelector('.system-nav li.active');
+      var activeLi2 = document.querySelector('#system-nav li.active');
       if (activeLi2) renderVideos(activeLi2.dataset.system);
     }
 
@@ -9662,6 +9695,8 @@
       contentArea.style.display = 'block';
       const system = li.dataset.system;
       pageTitle.textContent = li.childNodes[0].textContent.trim();
+      mobileBackBtn.style.display = 'flex';
+      desktopBackBtn.style.display = 'flex';
 
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelector('.tab[data-tab="videos"]').classList.add('active');
@@ -9679,6 +9714,8 @@
       setActiveNav(li);
       hideAllViews();
       const view = li.dataset.view;
+      mobileBackBtn.style.display = 'flex';
+      desktopBackBtn.style.display = 'flex';
       if (view === 'plan') planView.style.display = 'block';
       if (view === 'daily') dailyView.style.display = 'block';
       if (view === 'mistakes') mistakesView.style.display = 'block';
@@ -9751,6 +9788,8 @@
       homeView.style.display = 'block';
       pageTitle.textContent = '344备考台';
       document.querySelectorAll('.nav-list li').forEach(li => li.classList.remove('active'));
+      mobileBackBtn.style.display = 'none';
+      desktopBackBtn.style.display = 'none';
       if (window.innerWidth <= 768) closeSidebar();
       window.scrollTo(0, 0);
     }
@@ -9760,6 +9799,8 @@
       zhongjiView.style.display = 'block';
       pageTitle.textContent = '中级 · 各系统课程';
       document.querySelectorAll('.nav-list li').forEach(li => li.classList.remove('active'));
+      mobileBackBtn.style.display = 'flex';
+      desktopBackBtn.style.display = 'flex';
       if (window.innerWidth <= 768) closeSidebar();
       window.scrollTo(0, 0);
     }

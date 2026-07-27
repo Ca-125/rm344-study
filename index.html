@@ -787,6 +787,54 @@
     }
     .notes-empty-icon { font-size: 48px; margin-bottom: 12px; }
 
+    /* ===== Note Upload Modal ===== */
+    .note-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .note-modal.active { display: flex; }
+    .note-modal-dialog {
+      background: var(--panel);
+      border-radius: 16px;
+      max-width: 460px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .note-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .note-modal-header h3 { margin: 0; font-size: 16px; }
+    .note-modal-close {
+      border: none;
+      background: transparent;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+    .note-modal-body { padding: 16px 20px; }
+    .note-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+    }
+
     @media (max-width: 768px) {
       html, body {
         height: auto !important;
@@ -946,7 +994,8 @@
         <span id="note-viewer-title">笔记</span>
         <button class="note-viewer-close" onclick="closeNoteViewer()">✕</button>
       </div>
-      <img id="note-viewer-img" src="" alt="笔记" />
+      <img id="note-viewer-img" src="" alt="笔记" style="display:none" />
+      <iframe id="note-viewer-pdf" src="" style="display:none;border:none;width:100%;min-height:80vh" title="笔记PDF"></iframe>
     </div>
 
     <main class="main">
@@ -1500,19 +1549,58 @@
 
       <!-- ===== NOTES VIEW (三星笔记同步) ===== -->
       <div class="content" id="notes-view" style="display:none">
-        <h2 style="margin-top:0">📒 我的笔记</h2>
-        <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px">
-          三星平板笔记长截图自动同步。点击可全屏查看。
-        </p>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+          <div>
+            <h2 style="margin-top:0">📒 我的笔记</h2>
+            <p style="color:var(--text-secondary);font-size:13px;margin-bottom:0">
+              三星平板笔记截图/PDF。点击可全屏查看。
+            </p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="showNoteUploader()" style="white-space:nowrap">➕ 添加笔记</button>
+        </div>
         <div id="notes-container">
           <div class="notes-empty">
             <div class="notes-empty-icon">📒</div>
             <p>暂无笔记</p>
-            <p style="font-size:12px;margin-top:6px">在三星平板做好笔记 → 截图 → 发给AI助手即可同步</p>
+            <p style="font-size:12px;margin-top:6px">点击右上角"添加笔记"上传截图或PDF</p>
           </div>
         </div>
       </div>
     </main>
+  </div>
+
+  <!-- ===== Note Upload Modal ===== -->
+  <div class="note-modal" id="note-upload-modal">
+    <div class="note-modal-dialog">
+      <div class="note-modal-header">
+        <h3>添加笔记</h3>
+        <button class="note-modal-close" onclick="closeNoteUploader()">✕</button>
+      </div>
+      <div class="note-modal-body">
+        <div id="note-token-section" style="display:none;margin-bottom:16px">
+          <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">GitHub Token（首次使用需输入）</label>
+          <input type="password" id="note-token-input" placeholder="ghp_xxxxx..." style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text)">
+          <p style="font-size:11px;color:var(--text-secondary);margin-top:4px">Token仅存在本设备localStorage中，不会上传到任何服务器。</p>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">选择图片或PDF</label>
+          <input type="file" id="note-file-input" accept="image/*,application/pdf" style="font-size:13px;width:100%">
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">日期</label>
+          <input type="date" id="note-date-input" style="font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);width:100%">
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">标题（可选）</label>
+          <input type="text" id="note-title-input" placeholder="如：消化系统-食管癌" style="font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);width:100%">
+        </div>
+        <div id="note-upload-status" style="font-size:13px;min-height:20px"></div>
+      </div>
+      <div class="note-modal-footer">
+        <button class="btn btn-ghost btn-sm" onclick="closeNoteUploader()">取消</button>
+        <button class="btn btn-primary btn-sm" id="note-upload-btn" onclick="uploadNote()">上传</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -9900,6 +9988,13 @@
     }
 
     // ===== Notes (三星笔记同步) =====
+    var GH_OWNER = 'Ca-125';
+    var GH_REPO = 'rm344-study';
+    var GH_BRANCH = 'main';
+
+    function getGitHubToken() { return localStorage.getItem('gh_token') || ''; }
+    function saveGitHubToken(t) { localStorage.setItem('gh_token', t); }
+
     function renderNotes() {
       var container = document.getElementById('notes-container');
       container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">⏳</div><p>正在加载笔记…</p></div>';
@@ -9911,14 +10006,18 @@
         .then(function(data) {
           var notes = data.notes || [];
           if (notes.length === 0) {
-            container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">📒</div><p>暂无笔记</p><p style="font-size:12px;margin-top:6px">在三星平板做好笔记 → 截图 → 发给AI助手即可同步</p></div>';
+            container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">📒</div><p>暂无笔记</p><p style="font-size:12px;margin-top:6px">点击右上角"添加笔记"上传截图或PDF</p></div>';
             return;
           }
           notes.sort(function(a, b) { return b.date.localeCompare(a.date); });
           var html = '<div class="notes-grid">';
           notes.forEach(function(n) {
-            html += '<div class="note-card" onclick="openNoteViewer(\'' + n.image + '\', \'' + (n.title || n.date) + '\')">' +
-              '<img class="note-card-thumb" src="' + n.image + '" alt="' + (n.title || n.date) + '" loading="lazy" />' +
+            var isPdf = n.image.toLowerCase().indexOf('.pdf') > -1;
+            var thumb = isPdf
+              ? '<div class="note-card-thumb" style="display:flex;align-items:center;justify-content:center;font-size:36px">📄</div>'
+              : '<img class="note-card-thumb" src="' + n.image + '" alt="' + (n.title || n.date) + '" loading="lazy" />';
+            html += '<div class="note-card" onclick="openNoteViewer(\'' + n.image + '\', \'' + (n.title || n.date).replace(/'/g, '') + '\')">' +
+              thumb +
               '<div class="note-card-info">' +
               '<div class="note-card-date">' + n.date + '</div>' +
               (n.title ? '<div class="note-card-title">' + n.title + '</div>' : '') +
@@ -9928,24 +10027,165 @@
           container.innerHTML = html;
         })
         .catch(function() {
-          container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">📒</div><p>暂无笔记</p><p style="font-size:12px;margin-top:6px">在三星平板做好笔记 → 截图 → 发给AI助手即可同步</p></div>';
+          container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">📒</div><p>暂无笔记</p><p style="font-size:12px;margin-top:6px">点击右上角"添加笔记"上传截图或PDF</p></div>';
         });
     }
+
     function openNoteViewer(src, title) {
       var viewer = document.getElementById('note-viewer');
       var img = document.getElementById('note-viewer-img');
+      var pdfFrame = document.getElementById('note-viewer-pdf');
       var titleEl = document.getElementById('note-viewer-title');
-      img.src = src;
       titleEl.textContent = title || '笔记';
+      var isPdf = src.toLowerCase().indexOf('.pdf') > -1;
+      if (isPdf) {
+        img.style.display = 'none';
+        img.src = '';
+        pdfFrame.style.display = 'block';
+        pdfFrame.src = src;
+      } else {
+        pdfFrame.style.display = 'none';
+        pdfFrame.src = '';
+        img.style.display = 'block';
+        img.src = src;
+      }
       viewer.classList.add('active');
       viewer.scrollTop = 0;
       document.body.style.overflow = 'hidden';
     }
+
     function closeNoteViewer() {
       var viewer = document.getElementById('note-viewer');
       viewer.classList.remove('active');
       document.getElementById('note-viewer-img').src = '';
+      document.getElementById('note-viewer-img').style.display = 'none';
+      document.getElementById('note-viewer-pdf').src = '';
+      document.getElementById('note-viewer-pdf').style.display = 'none';
       document.body.style.overflow = '';
+    }
+
+    // ===== Note Upload (GitHub API) =====
+    function showNoteUploader() {
+      var modal = document.getElementById('note-upload-modal');
+      var tokenSection = document.getElementById('note-token-section');
+      var tokenInput = document.getElementById('note-token-input');
+      var dateInput = document.getElementById('note-date-input');
+      // Check token
+      if (!getGitHubToken()) {
+        tokenSection.style.display = 'block';
+        tokenInput.focus();
+      } else {
+        tokenSection.style.display = 'none';
+      }
+      // Default date = today
+      var now = new Date();
+      dateInput.value = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+      // Reset
+      document.getElementById('note-file-input').value = '';
+      document.getElementById('note-title-input').value = '';
+      document.getElementById('note-upload-status').innerHTML = '';
+      document.getElementById('note-upload-btn').disabled = false;
+      document.getElementById('note-upload-btn').textContent = '上传';
+      modal.classList.add('active');
+    }
+
+    function closeNoteUploader() {
+      document.getElementById('note-upload-modal').classList.remove('active');
+    }
+
+    function uploadNote() {
+      var statusEl = document.getElementById('note-upload-status');
+      var btn = document.getElementById('note-upload-btn');
+      var token = getGitHubToken();
+      var tokenInput = document.getElementById('note-token-input');
+
+      // Save token if entered
+      if (!token && tokenInput.value.trim()) {
+        token = tokenInput.value.trim();
+        saveGitHubToken(token);
+      }
+      if (!token) {
+        statusEl.innerHTML = '<span style="color:#e74c3c">请先输入GitHub Token</span>';
+        return;
+      }
+
+      var fileInput = document.getElementById('note-file-input');
+      var file = fileInput.files[0];
+      if (!file) {
+        statusEl.innerHTML = '<span style="color:#e74c3c">请选择文件</span>';
+        return;
+      }
+
+      var date = document.getElementById('note-date-input').value || new Date().toISOString().slice(0,10);
+      var title = document.getElementById('note-title-input').value.trim();
+
+      btn.disabled = true;
+      btn.textContent = '上传中…';
+      statusEl.innerHTML = '<span style="color:var(--text-secondary)">正在读取文件…</span>';
+
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var base64 = e.target.result.split(',')[1];
+        var ext = file.name.split('.').pop().toLowerCase();
+        var ts = String(Date.now()).slice(-6); // last 6 digits
+        var filename = date + '-' + ts + '.' + ext;
+        var path = 'notes/' + filename;
+
+        statusEl.innerHTML = '<span style="color:var(--text-secondary)">正在上传文件…</span>';
+
+        // Step 1: Upload the file
+        ghApiPut(path, 'add note: ' + date + (title ? ' ' + title : ''), base64, token)
+          .then(function() {
+            statusEl.innerHTML = '<span style="color:var(--text-secondary)">正在更新索引…</span>';
+            // Step 2: Get current index.json
+            return ghApiGet('notes/index.json', token);
+          })
+          .then(function(data) {
+            var currentContent = JSON.parse(atob(data.content.replace(/\n/g, '')));
+            currentContent.notes = currentContent.notes || [];
+            currentContent.notes.push({ date: date, title: title, image: 'notes/' + filename });
+            var newContent = btoa(JSON.stringify(currentContent, null, 2));
+            // Step 3: Update index.json
+            return ghApiPut('notes/index.json', 'update notes index', newContent, token, data.sha);
+          })
+          .then(function() {
+            statusEl.innerHTML = '<span style="color:#27ae60">✅ 上传成功！</span>';
+            btn.textContent = '完成';
+            setTimeout(function() {
+              closeNoteUploader();
+              renderNotes();
+            }, 800);
+          })
+          .catch(function(err) {
+            statusEl.innerHTML = '<span style="color:#e74c3c">上传失败：' + (err.message || err) + '</span>';
+            btn.disabled = false;
+            btn.textContent = '重试';
+          });
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function ghApiGet(path, token) {
+      return fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + path + '?ref=' + GH_BRANCH, {
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' }
+      }).then(function(r) {
+        if (!r.ok) throw new Error('GitHub API GET failed: ' + r.status);
+        return r.json();
+      });
+    }
+
+    function ghApiPut(path, message, content, token, sha) {
+      var body = { message: message, content: content, branch: GH_BRANCH };
+      if (sha) body.sha = sha;
+      return fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + path, {
+        method: 'PUT',
+        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      }).then(function(r) {
+        if (!r.ok && r.status !== 422) return r.json().then(function(d) { throw new Error(d.message || ('HTTP ' + r.status)); });
+        if (r.status === 422) throw new Error('文件已存在或SHA不匹配');
+        return r.json();
+      });
     }
 
     // Init

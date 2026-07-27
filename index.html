@@ -630,15 +630,69 @@
     }
     .mobile-overlay.active { display: block; }
 
+    /* ===== Home Icon Grid ===== */
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 8px 0;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .home-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 28px 12px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: var(--text);
+      min-height: 130px;
+    }
+    .home-tile:hover, .home-tile:active {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.12);
+      transform: translateY(-2px);
+    }
+    .home-tile-icon {
+      font-size: 36px;
+      line-height: 1;
+    }
+    .home-tile-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .home-tile-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.4;
+    }
+
     @media (max-width: 768px) {
       html, body {
+        height: auto !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-y: none;
       }
       .app {
         display: block;
-        height: auto;
+        height: auto !important;
         min-height: 100vh;
+        overflow: visible !important;
+      }
+      .main {
+        overflow: visible !important;
+        display: block !important;
       }
       .sidebar {
         position: fixed;
@@ -673,6 +727,9 @@
         flex-wrap: wrap;
         gap: 8px;
       }
+      .home-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .home-tile { padding: 22px 10px; min-height: 110px; }
+      .home-tile-icon { font-size: 32px; }
       .topbar h1 { font-size: 16px; }
       .topbar-actions { flex-wrap: wrap; gap: 8px; }
       .study-timer { font-size: 12px; padding: 6px 10px; }
@@ -736,6 +793,10 @@
       <div class="brand">放射医学344主治<br>备考工作台</div>
       <div class="countdown">距离2027年4月考试还有 <strong id="exam-days">--</strong> 天</div>
 
+      <ul class="nav-list" style="margin-bottom:4px">
+        <li onclick="goHome()" style="justify-content:flex-start;gap:10px"><span class="icon">🏠</span> 首页</li>
+      </ul>
+
       <div class="nav-section-title">中级</div>
       <ul class="nav-list" id="system-nav">
         <li data-system="intro" class="active">试听与导学 <span class="badge">3节</span></li>
@@ -772,7 +833,7 @@
         <button class="hamburger" aria-label="打开菜单" onclick="toggleSidebar()">
           <span></span><span></span><span></span>
         </button>
-        <div class="mobile-title">344备考台</div>
+        <div class="mobile-title" onclick="goHome()" style="cursor:pointer">344备考台</div>
         <div class="mobile-timer"><span id="mobile-timer-min">0</span>min</div>
       </div>
 
@@ -784,6 +845,42 @@
             <button class="btn btn-sm btn-success" id="checkin-btn" onclick="checkIn()">打卡 +15分钟</button>
           </div>
           <button class="btn btn-ghost btn-sm" onclick="resetToday()">重置</button>
+        </div>
+      </div>
+
+      <!-- ===== HOME VIEW ===== -->
+      <div class="content" id="home-view">
+        <div class="home-grid">
+          <div class="home-tile" onclick="goToView('system','intro')">
+            <div class="home-tile-icon">📺</div>
+            <div class="home-tile-title">中级</div>
+            <div class="home-tile-sub">各系统视频课程</div>
+          </div>
+          <div class="home-tile" onclick="goToView('global','daily')">
+            <div class="home-tile-icon">✅</div>
+            <div class="home-tile-title">今日任务</div>
+            <div class="home-tile-sub">每日学习打卡</div>
+          </div>
+          <div class="home-tile" onclick="goToView('global','manual')">
+            <div class="home-tile-icon">🏥</div>
+            <div class="home-tile-title">疾病手册</div>
+            <div class="home-tile-sub">结构化疾病专题</div>
+          </div>
+          <div class="home-tile" onclick="goToView('global','topics')">
+            <div class="home-tile-icon">🧭</div>
+            <div class="home-tile-title">纵向专题</div>
+            <div class="home-tile-sub">跨系统专题汇总</div>
+          </div>
+          <div class="home-tile" onclick="goToView('global','scoring')">
+            <div class="home-tile-icon">📐</div>
+            <div class="home-tile-title">报告规范与评分</div>
+            <div class="home-tile-sub">BI-RADS · Lung-RADS · CAD-RADS</div>
+          </div>
+          <div class="home-tile" onclick="goToView('global','templates')">
+            <div class="home-tile-icon">📋</div>
+            <div class="home-tile-title">十大肿瘤模板</div>
+            <div class="home-tile-sub">标准化报告模板</div>
+          </div>
         </div>
       </div>
 
@@ -3635,10 +3732,12 @@
     const topicsView = document.getElementById('topics-view');
     const scoringView = document.getElementById('scoring-view');
     const templatesView = document.getElementById('templates-view');
+    const homeView = document.getElementById('home-view');
     const pageTitle = document.getElementById('page-title');
     const statVideos = document.getElementById('stat-videos');
 
     function hideAllViews() {
+      homeView.style.display = 'none';
       contentArea.style.display = 'none';
       planView.style.display = 'none';
       dailyView.style.display = 'none';
@@ -9580,9 +9679,27 @@
     }
 
     // Init
-    renderVideos('intro');
-    renderShort('intro');
-    renderPanels('intro');
+    function goHome() {
+      hideAllViews();
+      homeView.style.display = 'block';
+      pageTitle.textContent = '344备考台';
+      document.querySelectorAll('.nav-list li').forEach(li => li.classList.remove('active'));
+      if (window.innerWidth <= 768) closeSidebar();
+      window.scrollTo(0, 0);
+    }
+
+    function goToView(type, target) {
+      if (type === 'global') {
+        var li = document.querySelector('.global-tools li[data-view="' + target + '"]');
+        if (li) li.click();
+      } else if (type === 'system') {
+        var li2 = document.querySelector('.system-nav li[data-system="' + target + '"]');
+        if (li2) li2.click();
+      }
+      if (window.innerWidth <= 768) closeSidebar();
+    }
+
+    goHome();
   </script>
 </body>
 </html>

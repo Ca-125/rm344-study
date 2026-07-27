@@ -1,0 +1,37 @@
+{
+  "name": "放射医学344主治备考工作台",
+  "short_name": "344备考台",
+  "description": "放射医学344主治考试备考工作台，含视频学习、疾病手册、纵向专题、评分系统、十大肿瘤模板与练习题追踪。",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1f2937",
+  "theme_color": "#1f2937",
+  "orientation": "portrait-primary",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "medical", "productivity"]
+}

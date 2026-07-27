@@ -9985,7 +9985,22 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('SW registered:', reg.scope))
+          .then(reg => {
+            console.log('SW registered:', reg.scope);
+            // Check for updates
+            reg.addEventListener('updatefound', () => {
+              var newWorker = reg.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'activated') {
+                    // New SW activated - reload to get latest HTML
+                    console.log('SW updated, reloading page...');
+                    window.location.reload();
+                  }
+                });
+              }
+            });
+          })
           .catch(err => console.log('SW registration failed:', err));
       });
     }

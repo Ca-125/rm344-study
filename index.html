@@ -1556,7 +1556,10 @@
               三星平板笔记截图/PDF。点击可全屏查看。
             </p>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="showNoteUploader()" style="white-space:nowrap">➕ 添加笔记</button>
+          <div style="display:flex;gap:8px;white-space:nowrap">
+            <button class="btn btn-sm" onclick="renderNotes()" style="background:var(--bg-tertiary);color:var(--text-primary)">🔄 刷新</button>
+            <button class="btn btn-primary btn-sm" onclick="showNoteUploader()">➕ 添加笔记</button>
+          </div>
         </div>
         <div id="notes-container">
           <div class="notes-empty">
@@ -9998,9 +10001,11 @@
     function renderNotes() {
       var container = document.getElementById('notes-container');
       container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">⏳</div><p>正在加载笔记…</p></div>';
-      fetch('notes/index.json?v=' + Date.now())
+      // Use cache-busting fetch to always get fresh data
+      var url = 'notes/index.json?t=' + Date.now() + '&r=' + Math.random();
+      fetch(url, { cache: 'no-store' })
         .then(function(r) {
-          if (!r.ok) throw new Error('fetch failed');
+          if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.json();
         })
         .then(function(data) {
@@ -10012,11 +10017,13 @@
           notes.sort(function(a, b) { return b.date.localeCompare(a.date); });
           var html = '<div class="notes-grid">';
           notes.forEach(function(n) {
+            var imgUrl = n.image + (n.image.indexOf('?') > -1 ? '&' : '?') + 't=' + Date.now();
             var isPdf = n.image.toLowerCase().indexOf('.pdf') > -1;
+            var safeTitle = (n.title || n.date).replace(/'/g, '').replace(/"/g, '&quot;');
             var thumb = isPdf
               ? '<div class="note-card-thumb" style="display:flex;align-items:center;justify-content:center;font-size:36px">📄</div>'
-              : '<img class="note-card-thumb" src="' + n.image + '" alt="' + (n.title || n.date) + '" loading="lazy" />';
-            html += '<div class="note-card" onclick="openNoteViewer(\'' + n.image + '\', \'' + (n.title || n.date).replace(/'/g, '') + '\')">' +
+              : '<img class="note-card-thumb" src="' + imgUrl + '" alt="' + safeTitle + '" loading="lazy" />';
+            html += '<div class="note-card" onclick="openNoteViewer(\'' + n.image + '\', \'' + safeTitle + '\')">' +
               thumb +
               '<div class="note-card-info">' +
               '<div class="note-card-date">' + n.date + '</div>' +
@@ -10026,8 +10033,8 @@
           html += '</div>';
           container.innerHTML = html;
         })
-        .catch(function() {
-          container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">📒</div><p>暂无笔记</p><p style="font-size:12px;margin-top:6px">点击右上角"添加笔记"上传截图或PDF</p></div>';
+        .catch(function(err) {
+          container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">⚠️</div><p>加载失败</p><p style="font-size:12px;margin-top:6px">' + (err.message || err) + '</p><p style="font-size:12px;margin-top:6px;color:var(--link-color);cursor:pointer" onclick="renderNotes()">点击重试</p></div>';
         });
     }
 
@@ -10038,16 +10045,18 @@
       var titleEl = document.getElementById('note-viewer-title');
       titleEl.textContent = title || '笔记';
       var isPdf = src.toLowerCase().indexOf('.pdf') > -1;
+      // Add cache-busting to image URL
+      var fullSrc = src + (src.indexOf('?') > -1 ? '&' : '?') + 't=' + Date.now();
       if (isPdf) {
         img.style.display = 'none';
         img.src = '';
         pdfFrame.style.display = 'block';
-        pdfFrame.src = src;
+        pdfFrame.src = fullSrc;
       } else {
         pdfFrame.style.display = 'none';
         pdfFrame.src = '';
         img.style.display = 'block';
-        img.src = src;
+        img.src = fullSrc;
       }
       viewer.classList.add('active');
       viewer.scrollTop = 0;
@@ -10149,12 +10158,17 @@
             return ghApiPut('notes/index.json', 'update notes index', newContent, token, data.sha);
           })
           .then(function() {
-            statusEl.innerHTML = '<span style="color:#27ae60">✅ 上传成功！</span>';
+            statusEl.innerHTML = '<span style="color:#27ae60">✅ 上传成功！正在刷新笔记列表…</span>';
             btn.textContent = '完成';
+            btn.disabled = true;
+            // Wait for GitHub Pages CDN to propagate, then refresh
             setTimeout(function() {
               closeNoteUploader();
+              // Force re-render with cache-busting
               renderNotes();
-            }, 800);
+              // Also try again after 2 more seconds in case CDN was slow
+              setTimeout(function() { renderNotes(); }, 2500);
+            }, 1500);
           })
           .catch(function(err) {
             statusEl.innerHTML = '<span style="color:#e74c3c">上传失败：' + (err.message || err) + '</span>';

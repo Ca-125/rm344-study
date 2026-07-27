@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rm344-pwa-202607271326';
+const CACHE_NAME = 'rm344-pwa-202607271340';
 const ASSETS = [
   './',
   './index.html',
@@ -33,9 +33,9 @@ self.addEventListener('activate', event => {
 });
 
 // Fetch strategy:
-// - HTML: stale-while-revalidate (show cached immediately, update in background)
-// - Static assets (icons, manifest): cache-first
-// - Other: network-first with cache fallback
+// - HTML & JSON: network-first (always try to get latest, fallback to cache if offline)
+// - Static assets (icons): cache-first
+// - Images/PDFs in notes/: network-first with cache fallback
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
@@ -47,24 +47,23 @@ self.addEventListener('fetch', event => {
 
   const isHTML = url.pathname === '/' || url.pathname.endsWith('/index.html') || url.pathname.endsWith('.html');
   const isStaticAsset = ASSETS.some(asset =>
-    asset.match(/\.(png|ico|json)$/) && url.pathname.endsWith(asset.replace('./', ''))
+    asset.match(/\.(png|ico)$/) && url.pathname.endsWith(asset.replace('./', ''))
   );
 
   if (isHTML) {
-    // Stale-while-revalidate for HTML
+    // Network-first for HTML - always get the latest version
     event.respondWith(
-      caches.open(CACHE_NAME).then(cache =>
-        cache.match(request).then(cached => {
-          const fetchPromise = fetch(request).then(response => {
-            // Only cache valid responses
-            if (response && response.status === 200) {
-              cache.put(request, response.clone());
-            }
-            return response;
-          }).catch(() => cached);
-          // Return cached immediately, or wait for network if no cache
-          return cached || fetchPromise;
-        })
+      fetch(request).then(response => {
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone).catch(() => {}));
+        }
+        return response;
+      }).catch(() =>
+        caches.match(request).then(cached => cached || new Response('离线模式，请连接网络后重试', {
+          status: 503,
+          headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+        }))
       )
     );
   } else if (isStaticAsset) {
@@ -79,7 +78,7 @@ self.addEventListener('fetch', event => {
       )
     );
   } else {
-    // Network-first for everything else
+    // Network-first for everything else (JSON, images, PDFs)
     event.respondWith(
       fetch(request).then(response => {
         const clone = response.clone();

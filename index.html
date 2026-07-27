@@ -851,7 +851,7 @@
       <!-- ===== HOME VIEW ===== -->
       <div class="content" id="home-view">
         <div class="home-grid">
-          <div class="home-tile" onclick="goToView('system','intro')">
+          <div class="home-tile" onclick="goZhongji()">
             <div class="home-tile-icon">📺</div>
             <div class="home-tile-title">中级</div>
             <div class="home-tile-sub">各系统视频课程</div>
@@ -880,6 +880,71 @@
             <div class="home-tile-icon">📋</div>
             <div class="home-tile-title">十大肿瘤模板</div>
             <div class="home-tile-sub">标准化报告模板</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ZHONGJI (中级子系统选择) VIEW ===== -->
+      <div class="content" id="zhongji-view">
+        <div style="margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+          <span onclick="goHome()" style="cursor:pointer;font-size:20px;color:var(--accent,#4a90d9)">←</span>
+          <span style="font-size:18px;font-weight:700">中级 · 各系统课程</span>
+        </div>
+        <div class="home-grid">
+          <div class="home-tile" onclick="goToView('system','intro')">
+            <div class="home-tile-icon">🎬</div>
+            <div class="home-tile-title">试听与导学</div>
+            <div class="home-tile-sub">3节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','tech')">
+            <div class="home-tile-icon">⚙️</div>
+            <div class="home-tile-title">影像技术基础</div>
+            <div class="home-tile-sub">38节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','cns')">
+            <div class="home-tile-icon">🧠</div>
+            <div class="home-tile-title">中枢神经系统</div>
+            <div class="home-tile-sub">15节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','headneck')">
+            <div class="home-tile-icon">👂</div>
+            <div class="home-tile-title">头颈部</div>
+            <div class="home-tile-sub">6节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','respiratory')">
+            <div class="home-tile-icon">🫁</div>
+            <div class="home-tile-title">呼吸系统</div>
+            <div class="home-tile-sub">15节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','circulatory')">
+            <div class="home-tile-icon">❤️</div>
+            <div class="home-tile-title">循环系统</div>
+            <div class="home-tile-sub">15节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','digestive')">
+            <div class="home-tile-icon">🍽️</div>
+            <div class="home-tile-title">消化系统</div>
+            <div class="home-tile-sub">17节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','urogenital')">
+            <div class="home-tile-icon">🩺</div>
+            <div class="home-tile-title">泌尿生殖系统</div>
+            <div class="home-tile-sub">32节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','musculoskeletal')">
+            <div class="home-tile-icon">🦴</div>
+            <div class="home-tile-title">骨肌系统</div>
+            <div class="home-tile-sub">13节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','intervention')">
+            <div class="home-tile-icon">💉</div>
+            <div class="home-tile-title">介入放射学</div>
+            <div class="home-tile-sub">8节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','core')">
+            <div class="home-tile-icon">📝</div>
+            <div class="home-tile-title">必背核心考点</div>
+            <div class="home-tile-sub">13节</div>
           </div>
         </div>
       </div>
@@ -3733,11 +3798,13 @@
     const scoringView = document.getElementById('scoring-view');
     const templatesView = document.getElementById('templates-view');
     const homeView = document.getElementById('home-view');
+    const zhongjiView = document.getElementById('zhongji-view');
     const pageTitle = document.getElementById('page-title');
     const statVideos = document.getElementById('stat-videos');
 
     function hideAllViews() {
       homeView.style.display = 'none';
+      zhongjiView.style.display = 'none';
       contentArea.style.display = 'none';
       planView.style.display = 'none';
       dailyView.style.display = 'none';
@@ -9683,6 +9750,15 @@
       hideAllViews();
       homeView.style.display = 'block';
       pageTitle.textContent = '344备考台';
+      document.querySelectorAll('.nav-list li').forEach(li => li.classList.remove('active'));
+      if (window.innerWidth <= 768) closeSidebar();
+      window.scrollTo(0, 0);
+    }
+
+    function goZhongji() {
+      hideAllViews();
+      zhongjiView.style.display = 'block';
+      pageTitle.textContent = '中级 · 各系统课程';
       document.querySelectorAll('.nav-list li').forEach(li => li.classList.remove('active'));
       if (window.innerWidth <= 768) closeSidebar();
       window.scrollTo(0, 0);

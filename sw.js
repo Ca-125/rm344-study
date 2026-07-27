@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rm344-pwa-v2';
+const CACHE_NAME = 'rm344-pwa-202607271227';
 const ASSETS = [
   './',
   './index.html',

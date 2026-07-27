@@ -958,17 +958,23 @@
 
       <div class="nav-section-title">中级</div>
       <ul class="nav-list" id="system-nav">
-        <li data-system="intro" class="active">试听与导学 <span class="badge">14节</span></li>
-        <li data-system="tech">影像技术基础 <span class="badge">31节</span></li>
-        <li data-system="cns">中枢神经系统 <span class="badge">9节</span></li>
-        <li data-system="headneck">头颈部 <span class="badge">5节</span></li>
-        <li data-system="respiratory">呼吸系统 <span class="badge">10节</span></li>
-        <li data-system="circulatory">循环系统 <span class="badge">5节</span></li>
-        <li data-system="digestive">消化系统 <span class="badge">17节</span></li>
-        <li data-system="urogenital">泌尿生殖系统 <span class="badge">32节</span></li>
-        <li data-system="musculoskeletal">骨肌系统 <span class="badge">13节</span></li>
-        <li data-system="intervention">介入放射学 <span class="badge">8节</span></li>
-        <li data-system="core">必背核心考点 <span class="badge">13节</span></li>
+        <li data-system="trial" class="active">试听内容 <span class="badge">3节</span></li>
+        <li data-system="errata">鼎湖教材勘误(必看) <span class="badge">9节</span></li>
+        <li data-system="notice">公告须知 <span class="badge">2节</span></li>
+        <li data-system="xray">第一章 X线成像基础 <span class="badge">1节</span></li>
+        <li data-system="dxray">第二章 数字X线成像基础 <span class="badge">1节</span></li>
+        <li data-system="ct">第三章 CT成像基础 <span class="badge">2节</span></li>
+        <li data-system="mri">第四章 磁共振成像基础 <span class="badge">1节</span></li>
+        <li data-system="contrast">第五章 影像诊断常用对比剂 <span class="badge">1节</span></li>
+        <li data-system="intervention">第六章 介入放射学 <span class="badge">2节</span></li>
+        <li data-system="anatomy">第七章 影像解剖 <span class="badge">1节</span></li>
+        <li data-system="cns_headneck">第八章 中枢神经系统与头颈部 <span class="badge">14节</span></li>
+        <li data-system="chest">第九章 胸部 <span class="badge">15节</span></li>
+        <li data-system="digestive">第十章 消化系统 <span class="badge">17节</span></li>
+        <li data-system="urogenital">第十一章 泌尿生殖系统 <span class="badge">32节</span></li>
+        <li data-system="musculoskeletal">第十二章 骨与关节 <span class="badge">13节</span></li>
+        <li data-system="core">放射医师中级必背核心考点 <span class="badge">13节</span></li>
+        <li data-system="basic2025">基础部分视频 2025年小周老师版本 <span class="badge">31节</span></li>
       </ul>
 
       <div class="nav-section-title">工具与资料</div>
@@ -1011,7 +1017,7 @@
       <div class="topbar">
         <div style="display:flex;align-items:center;gap:10px;">
           <button class="back-home-btn" id="desktop-back-btn" onclick="goHome()" aria-label="返回首页" style="display:none">←</button>
-          <h1 id="page-title">试听与导学</h1>
+          <h1 id="page-title">试听内容</h1>
         </div>
         <div class="topbar-actions">
           <div class="study-timer">
@@ -1069,60 +1075,90 @@
           <span style="font-size:18px;font-weight:700">中级 · 各系统课程</span>
         </div>
         <div class="home-grid">
-          <div class="home-tile" onclick="goToView('system','intro')">
+          <div class="home-tile" onclick="goToView('system','trial')">
             <div class="home-tile-icon">🎬</div>
-            <div class="home-tile-title">试听与导学</div>
-            <div class="home-tile-sub">14节</div>
+            <div class="home-tile-title">试听内容</div>
+            <div class="home-tile-sub">3节</div>
           </div>
-          <div class="home-tile" onclick="goToView('system','tech')">
-            <div class="home-tile-icon">⚙️</div>
-            <div class="home-tile-title">影像技术基础</div>
-            <div class="home-tile-sub">31节</div>
-          </div>
-          <div class="home-tile" onclick="goToView('system','cns')">
-            <div class="home-tile-icon">🧠</div>
-            <div class="home-tile-title">中枢神经系统</div>
+          <div class="home-tile" onclick="goToView('system','errata')">
+            <div class="home-tile-icon">📋</div>
+            <div class="home-tile-title">鼎湖教材勘误(必看)</div>
             <div class="home-tile-sub">9节</div>
           </div>
-          <div class="home-tile" onclick="goToView('system','headneck')">
-            <div class="home-tile-icon">👂</div>
-            <div class="home-tile-title">头颈部</div>
-            <div class="home-tile-sub">5节</div>
+          <div class="home-tile" onclick="goToView('system','notice')">
+            <div class="home-tile-icon">📢</div>
+            <div class="home-tile-title">公告须知</div>
+            <div class="home-tile-sub">2节</div>
           </div>
-          <div class="home-tile" onclick="goToView('system','respiratory')">
+          <div class="home-tile" onclick="goToView('system','xray')">
+            <div class="home-tile-icon">📡</div>
+            <div class="home-tile-title">第一章 X线成像基础</div>
+            <div class="home-tile-sub">1节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','dxray')">
+            <div class="home-tile-icon">🖥️</div>
+            <div class="home-tile-title">第二章 数字X线成像基础</div>
+            <div class="home-tile-sub">1节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','ct')">
+            <div class="home-tile-icon">🩻</div>
+            <div class="home-tile-title">第三章 CT成像基础</div>
+            <div class="home-tile-sub">2节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','mri')">
+            <div class="home-tile-icon">🧲</div>
+            <div class="home-tile-title">第四章 磁共振成像基础</div>
+            <div class="home-tile-sub">1节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','contrast')">
+            <div class="home-tile-icon">💉</div>
+            <div class="home-tile-title">第五章 影像诊断常用对比剂</div>
+            <div class="home-tile-sub">1节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','intervention')">
+            <div class="home-tile-icon">🔬</div>
+            <div class="home-tile-title">第六章 介入放射学</div>
+            <div class="home-tile-sub">2节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','anatomy')">
+            <div class="home-tile-icon">🦴</div>
+            <div class="home-tile-title">第七章 影像解剖</div>
+            <div class="home-tile-sub">1节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','cns_headneck')">
+            <div class="home-tile-icon">🧠</div>
+            <div class="home-tile-title">第八章 中枢神经系统与头颈部</div>
+            <div class="home-tile-sub">14节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','chest')">
             <div class="home-tile-icon">🫁</div>
-            <div class="home-tile-title">呼吸系统</div>
-            <div class="home-tile-sub">10节</div>
-          </div>
-          <div class="home-tile" onclick="goToView('system','circulatory')">
-            <div class="home-tile-icon">❤️</div>
-            <div class="home-tile-title">循环系统</div>
-            <div class="home-tile-sub">5节</div>
+            <div class="home-tile-title">第九章 胸部</div>
+            <div class="home-tile-sub">15节</div>
           </div>
           <div class="home-tile" onclick="goToView('system','digestive')">
             <div class="home-tile-icon">🍽️</div>
-            <div class="home-tile-title">消化系统</div>
+            <div class="home-tile-title">第十章 消化系统</div>
             <div class="home-tile-sub">17节</div>
           </div>
           <div class="home-tile" onclick="goToView('system','urogenital')">
             <div class="home-tile-icon">🩺</div>
-            <div class="home-tile-title">泌尿生殖系统</div>
+            <div class="home-tile-title">第十一章 泌尿生殖系统</div>
             <div class="home-tile-sub">32节</div>
           </div>
           <div class="home-tile" onclick="goToView('system','musculoskeletal')">
             <div class="home-tile-icon">🦴</div>
-            <div class="home-tile-title">骨肌系统</div>
+            <div class="home-tile-title">第十二章 骨与关节</div>
             <div class="home-tile-sub">13节</div>
-          </div>
-          <div class="home-tile" onclick="goToView('system','intervention')">
-            <div class="home-tile-icon">💉</div>
-            <div class="home-tile-title">介入放射学</div>
-            <div class="home-tile-sub">8节</div>
           </div>
           <div class="home-tile" onclick="goToView('system','core')">
             <div class="home-tile-icon">📝</div>
-            <div class="home-tile-title">必背核心考点</div>
+            <div class="home-tile-title">放射医师中级必背核心考点</div>
             <div class="home-tile-sub">13节</div>
+          </div>
+          <div class="home-tile" onclick="goToView('system','basic2025')">
+            <div class="home-tile-icon">📚</div>
+            <div class="home-tile-title">基础部分视频 2025年小周老师版本</div>
+            <div class="home-tile-sub">31节</div>
           </div>
         </div>
       </div>
@@ -1197,13 +1233,13 @@
       <!-- ===== PLAN VIEW ===== -->
       <div class="content" id="plan-view" style="display:none">
         <h2 style="margin-top:0">四阶段备考计划</h2>
-        <p style="color:var(--text-secondary)">第一阶段三大目标：157个课程项(67.2h视频) + 4500道章节练习题 + Core Radiology 66页（每天30min），10月1日前全部完成。</p>
+        <p style="color:var(--text-secondary)">第一阶段三大目标：158个课程项(65.2h视频) + 4500道章节练习题 + Core Radiology 66页（每天30min），10月1日前全部完成。</p>
         <div class="plan-timeline" style="margin-top:18px">
           <div class="plan-phase">
             <h4>阶段一：视频首轮 + 章节刷题 + Core Radiology</h4>
             <div class="date">2026.7.27 — 2026.9.30（66天）</div>
             <ul>
-              <li><strong>视频</strong>：看完全部157个课程项（67.2h视频）</li>
+              <li><strong>视频</strong>：看完全部158个课程项（65.2h视频）</li>
               <li><strong>做题</strong>：完成4500道章节练习题</li>
               <li><strong>Core Radiology</strong>：每天1页精读（30min），共66页</li>
               <li>工作日(3h)：30min Core + 61min视频 + 89min做题(65题)</li>
@@ -1252,11 +1288,11 @@
           <h3 style="margin:0 0 8px;color:var(--accent)">📊 当前阶段：第一阶段 — 视频首轮 + 章节刷题 + Core Radiology</h3>
           <p style="margin:0;font-size:13px;color:var(--text-secondary)">
           三大任务（10月1日前全部完成）：<br>
-          ① 看完全部157个课程项（共67.2小时 = 4034分钟，其中145个为视频）<br>
+          ① 看完全部158个课程项（共65.2小时 = 3914分钟，其中143个为视频）<br>
           ② 做完4500道章节练习题<br>
           ③ 每天学1页Core Radiology（每天30分钟，共66天 = 33小时）<br><br>
           可用时间：7月27日→9月30日 = 66天（工作日48天×3h + 休息日18天×4h = 216小时 = 12960分钟）<br>
-          扣除Core Radiology 33h后，剩余183h分配给视频（67.2h）+ 做题（115.8h）<br>
+          扣除Core Radiology 33h后，剩余183h分配给视频（65.2h）+ 做题（117.8h）<br>
           每题约1.37分钟，<strong>总计完全可行</strong></p>
         </div>
 
@@ -1287,7 +1323,7 @@
           <h4 style="margin:0 0 12px">📈 学习进度总览</h4>
           <table class="dm-table">
             <tr><th>阶段</th><th>时间</th><th>任务</th><th>每日分配</th></tr>
-            <tr><td><b>第一阶段</b></td><td>现在→9.30</td><td>157个课程项(67.2h视频) + 4500题 + Core Radiology 66页</td><td>工作日: 30min Core+61min视频+89min做题(65题)<br>休息日: 30min Core+61min视频+149min做题(109题)</td></tr>
+            <tr><td><b>第一阶段</b></td><td>现在→9.30</td><td>158个课程项(65.2h视频) + 4500题 + Core Radiology 66页</td><td>工作日: 30min Core+61min视频+89min做题(65题)<br>休息日: 30min Core+61min视频+149min做题(109题)</td></tr>
             <tr><td><b>第二阶段</b></td><td>2026.10-2027.2</td><td>鼎湖新课每周4-6节 + 自学讲义 + APP刷题</td><td>按鼎湖课程节奏，紧跟进度</td></tr>
             <tr><td><b>第三阶段</b></td><td>2027.2-3</td><td>乱序做题 + 考试重点总结记忆</td><td>APP乱序刷题，强化薄弱环节</td></tr>
             <tr><td><b>第四阶段</b></td><td>2027.4</td><td>冲刺模拟考试 + 疑难问题视频录制</td><td>模拟考试，查漏补缺</td></tr>
@@ -1298,8 +1334,8 @@
           <h4 style="margin:0 0 12px">📊 第一阶段进度追踪</h4>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
             <div style="text-align:center;padding:12px;background:var(--bg);border-radius:8px">
-              <div style="font-size:24px;font-weight:700;color:var(--success)">157</div>
-              <div style="font-size:12px;color:var(--text-secondary)">课程总数（67.2h视频）</div>
+              <div style="font-size:24px;font-weight:700;color:var(--success)">158</div>
+              <div style="font-size:12px;color:var(--text-secondary)">课程总数（65.2h视频）</div>
               <div style="font-size:13px;margin-top:4px">已完成: <strong id="progress-videos">0</strong></div>
             </div>
             <div style="text-align:center;padding:12px;background:var(--bg);border-radius:8px">
@@ -1618,32 +1654,183 @@
 
     // ===== Course Data =====
     const courseData = {
-      intro: [
-        { num: 01, title: '试听 | 骨肿瘤：骨肉瘤', duration: '14分10秒', type: '视频' },
-        { num: 02, title: '卫生专业技术资格考试-基本规则（必看）', duration: '10分12秒', type: '视频' },
-        { num: 03, title: '2025年344动员课', duration: '直播', type: '直播' },
-        { num: 04, title: '鼎湖教材勘误01', duration: '图文', type: '图文' },
-        { num: 05, title: '鼎湖教材勘误02', duration: '图文', type: '图文' },
-        { num: 06, title: '鼎湖教材勘误03', duration: '图文', type: '图文' },
-        { num: 07, title: '鼎湖教材勘误04', duration: '图文', type: '图文' },
-        { num: 08, title: '鼎湖教材勘误05', duration: '图文', type: '图文' },
-        { num: 09, title: '鼎湖教材勘误06', duration: '图文', type: '图文' },
-        { num: 10, title: '鼎湖教材勘误07', duration: '图文', type: '图文' },
-        { num: 11, title: '鼎湖教材勘误08', duration: '图文', type: '图文' },
-        { num: 12, title: '鼎湖教材勘误09', duration: '图文', type: '图文' },
-        { num: 13, title: '鼎湖教材勘误10', duration: '图文', type: '图文' },
-        { num: 14, title: '2026年放射医学中级“第一课”', duration: '直播', type: '直播' },
+      // 试听内容
+      trial: [
+        { num:   1, title: '试听 | 骨肿瘤：骨肉瘤', duration: '14分10秒', type: '视频' },
+        { num:   2, title: '卫生专业技术资格考试-基本规则（必看）', duration: '10分12秒', type: '视频' },
+        { num:   3, title: '2025年344动员课', duration: '直播', type: '直播' },
       ],
-      tech: [
-        { num: 15, title: '第一章 X线成像基础', duration: '29分49秒', type: '视频' },
-        { num: 16, title: '第二章 数字X线成像基础', duration: '09分25秒', type: '视频' },
-        { num: 17, title: '第三章 CT成像基础(1)', duration: '28分34秒', type: '视频' },
-        { num: 18, title: '第三章 CT成像基础(2)', duration: '30分17秒', type: '视频' },
-        { num: 19, title: '第四章 磁共振成像基础', duration: '26分46秒', type: '视频' },
-        { num: 20, title: '第五章 影像诊断常用对比剂', duration: '25分38秒', type: '视频' },
-        { num: 21, title: '第六章 介入放射学1', duration: '64分24秒', type: '视频' },
-        { num: 22, title: '第六章 介入放射学2', duration: '56分16秒', type: '视频' },
-        { num: 23, title: '第七章 影像解剖', duration: '56分22秒', type: '视频' },
+      // 鼎湖教材勘误(必看)
+      errata: [
+        { num:   4, title: '鼎湖教材勘误01', duration: '图文', type: '图文' },
+        { num:   5, title: '鼎湖教材勘误02', duration: '图文', type: '图文' },
+        { num:   6, title: '鼎湖教材勘误03', duration: '图文', type: '图文' },
+        { num:   7, title: '鼎湖教材勘误04', duration: '图文', type: '图文' },
+        { num:   8, title: '鼎湖教材勘误05', duration: '图文', type: '图文' },
+        { num:   9, title: '鼎湖教材勘误06', duration: '图文', type: '图文' },
+        { num:  10, title: '鼎湖教材勘误07', duration: '图文', type: '图文' },
+        { num:  11, title: '鼎湖教材勘误08', duration: '图文', type: '图文' },
+        { num:  12, title: '鼎湖教材勘误09', duration: '图文', type: '图文' },
+      ],
+      // 公告须知
+      notice: [
+        { num:  13, title: '公告须知01', duration: '图文', type: '图文' },
+        { num:  14, title: '公告须知02', duration: '直播', type: '直播' },
+      ],
+      // 第一章 X线成像基础
+      xray: [
+        { num:  15, title: '第一章 X线成像基础', duration: '29分49秒', type: '视频' },
+      ],
+      // 第二章 数字X线成像基础
+      dxray: [
+        { num:  16, title: '第二章 数字X线成像基础', duration: '09分25秒', type: '视频' },
+      ],
+      // 第三章 CT成像基础
+      ct: [
+        { num:  17, title: '第三章 CT成像基础(1)', duration: '28分34秒', type: '视频' },
+        { num:  18, title: '第三章 CT成像基础(2)', duration: '30分17秒', type: '视频' },
+      ],
+      // 第四章 磁共振成像基础
+      mri: [
+        { num:  19, title: '第四章 磁共振成像基础', duration: '26分46秒', type: '视频' },
+      ],
+      // 第五章 影像诊断常用对比剂
+      contrast: [
+        { num:  20, title: '第五章 影像诊断常用对比剂', duration: '25分38秒', type: '视频' },
+      ],
+      // 第六章 介入放射学
+      intervention: [
+        { num:  21, title: '第六章 介入放射学1', duration: '64分24秒', type: '视频' },
+        { num:  22, title: '第六章 介入放射学2', duration: '56分16秒', type: '视频' },
+      ],
+      // 第七章 影像解剖
+      anatomy: [
+        { num:  23, title: '第七章 影像解剖', duration: '56分22秒', type: '视频' },
+      ],
+      // 第八章 中枢神经系统与头颈部
+      cns_headneck: [
+        { num:  24, title: '第一节 概述', duration: '71分36秒', type: '视频' },
+        { num:  25, title: '第二节 脑血管疾病', duration: '62分36秒', type: '视频' },
+        { num:  26, title: '第三节 脑先天发育畸形', duration: '67分37秒', type: '视频' },
+        { num:  27, title: '第四节 大脑肿瘤', duration: '84分19秒', type: '视频' },
+        { num:  28, title: '第五节 脑外伤', duration: '27分34秒', type: '视频' },
+        { num:  29, title: '第六节 颅内感染', duration: '34分27秒', type: '视频' },
+        { num:  30, title: '第七节 脑白质病变', duration: '12分56秒', type: '视频' },
+        { num:  31, title: '第八节 椎管内肿瘤', duration: '31分41秒', type: '视频' },
+        { num:  37, title: '09.脑出血的影像诊断（方金）', duration: '117分27秒', type: '视频' },
+        { num:  32, title: '第九节 眼眶', duration: '45分57秒', type: '视频' },
+        { num:  33, title: '第十节 耳与颞骨', duration: '44分22秒', type: '视频' },
+        { num:  34, title: '第十一节 鼻与鼻旁窦', duration: '66分40秒', type: '视频' },
+        { num:  35, title: '第十二节 咽与喉', duration: '31分21秒', type: '视频' },
+        { num:  36, title: '第十三节 涎腺', duration: '14分42秒', type: '视频' },
+      ],
+      // 第九章 胸部
+      chest: [
+        { num:  38, title: '第一节 肺的基本病变', duration: '33分55秒', type: '视频' },
+        { num:  39, title: '第二节 气管、支气管病变', duration: '10分42秒', type: '视频' },
+        { num:  40, title: '第三节 肺先天性疾病', duration: '09分55秒', type: '视频' },
+        { num:  41, title: '第四节 肺炎', duration: '33分59秒', type: '视频' },
+        { num:  42, title: '第五节 肺结核', duration: '19分18秒', type: '视频' },
+        { num:  43, title: '第六节 肺肿瘤', duration: '21分12秒', type: '视频' },
+        { num:  44, title: '第七节 结节病', duration: '03分58秒', type: '视频' },
+        { num:  45, title: '第八节 尘肺', duration: '07分11秒', type: '视频' },
+        { num:  46, title: '第九节 胸壁、胸膜病变', duration: '08分06秒', type: '视频' },
+        { num:  47, title: '第十节 纵膈肿瘤', duration: '05分20秒', type: '视频' },
+        { num:  48, title: '第十一节 心脏大血管基本病变', duration: '29分37秒', type: '视频' },
+        { num:  49, title: '第十二节 先天性心脏大血管疾病', duration: '53分25秒', type: '视频' },
+        { num:  50, title: '第十三节 获得性心脏病', duration: '35分26秒', type: '视频' },
+        { num:  51, title: '第十四节 心包疾病', duration: '06分09秒', type: '视频' },
+        { num:  52, title: '第十五节 大血管疾病', duration: '10分50秒', type: '视频' },
+      ],
+      // 第十章 消化系统
+      digestive: [
+        { num:  53, title: '第一节 消化道基本疾病', duration: '14分54秒', type: '视频' },
+        { num:  54, title: '第二节 食管疾病', duration: '19分55秒', type: '视频' },
+        { num:  55, title: '第三节 胃肠疾病（上）', duration: '36分05秒', type: '视频' },
+        { num:  56, title: '第三节 胃肠疾病（下）', duration: '54分19秒', type: '视频' },
+        { num:  57, title: '第四节 肝良性肿瘤和肿瘤样病变', duration: '11分59秒', type: '视频' },
+        { num:  58, title: '第五节 肝恶性肿瘤', duration: '27分22秒', type: '视频' },
+        { num:  59, title: '第六节 弥漫性肝病', duration: '32分13秒', type: '视频' },
+        { num:  60, title: '第七节 肝脓肿', duration: '09分42秒', type: '视频' },
+        { num:  61, title: '第八节 肝其他病变', duration: '21分59秒', type: '视频' },
+        { num:  62, title: '第九节 胆系结石症', duration: '09分16秒', type: '视频' },
+        { num:  63, title: '第十节 胆囊炎', duration: '06分24秒', type: '视频' },
+        { num:  64, title: '第十一节 胆系肿瘤', duration: '18分17秒', type: '视频' },
+        { num:  65, title: '第十二节 胆系其他病变', duration: '21分49秒', type: '视频' },
+        { num:  66, title: '第十三节 胰腺炎', duration: '13分36秒', type: '视频' },
+        { num:  67, title: '第十四节 胰腺肿瘤', duration: '28分57秒', type: '视频' },
+        { num:  68, title: '第十五节 胰腺先天变异', duration: '06分29秒', type: '视频' },
+        { num:  69, title: '第十六节 脾病变', duration: '17分49秒', type: '视频' },
+      ],
+      // 第十一章 泌尿生殖系统
+      urogenital: [
+        { num:  70, title: '第一节 肾先天发育异常和正常变异', duration: '23分49秒', type: '视频' },
+        { num:  71, title: '第二节 肾囊性病变', duration: '09分51秒', type: '视频' },
+        { num:  72, title: '第三节 肾良性肿瘤', duration: '08分21秒', type: '视频' },
+        { num:  73, title: '第四节 肾恶性肿瘤', duration: '18分54秒', type: '视频' },
+        { num:  74, title: '第五节 肾血管性病变', duration: '14分33秒', type: '视频' },
+        { num:  75, title: '第六节 肾感染性病变', duration: '23分17秒', type: '视频' },
+        { num:  76, title: '第七节 肾其他病变', duration: '16分53秒', type: '视频' },
+        { num:  77, title: '第八节 输尿管囊肿', duration: '05分38秒', type: '视频' },
+        { num:  78, title: '第九节 输尿管癌', duration: '06分16秒', type: '视频' },
+        { num:  79, title: '第十节 输尿管结核', duration: '04分05秒', type: '视频' },
+        { num:  80, title: '第十一节 输尿管结石', duration: '04分58秒', type: '视频' },
+        { num:  81, title: '第十二节 膀胱先天发育异常', duration: '07分43秒', type: '视频' },
+        { num:  82, title: '第十三节 膀胱良性肿瘤', duration: '06分32秒', type: '视频' },
+        { num:  83, title: '第十四节 膀胱癌', duration: '09分00秒', type: '视频' },
+        { num:  84, title: '第十五节 膀胱感染性病变', duration: '11分08秒', type: '视频' },
+        { num:  85, title: '第十六节 膀胱结石', duration: '05分26秒', type: '视频' },
+        { num:  86, title: '第十七节 肾上腺囊肿', duration: '02分35秒', type: '视频' },
+        { num:  87, title: '第十八节 肾上腺良性肿瘤', duration: '13分50秒', type: '视频' },
+        { num:  88, title: '第十九节 肾上腺恶性肿瘤', duration: '06分37秒', type: '视频' },
+        { num:  89, title: '第二十节 肾上腺结核', duration: '03分09秒', type: '视频' },
+        { num:  90, title: '第二十一节 肾上腺增生', duration: '05分27秒', type: '视频' },
+        { num:  91, title: '第二十二节 腹膜后恶性肿瘤', duration: '07分09秒', type: '视频' },
+        { num:  92, title: '第二十三节 腹膜后纤维化', duration: '06分51秒', type: '视频' },
+        { num:  93, title: '第二十四节 前列腺癌', duration: '10分11秒', type: '视频' },
+        { num:  94, title: '第二十五节 前列腺感染性病变', duration: '08分51秒', type: '视频' },
+        { num:  95, title: '第二十六节 前列腺增生', duration: '13分40秒', type: '视频' },
+        { num:  96, title: '第二十七节 子宫先天畸形', duration: '02分15秒', type: '视频' },
+        { num:  97, title: '第二十八节 子宫肌瘤', duration: '07分51秒', type: '视频' },
+        { num:  98, title: '第二十九节 子宫恶性肿瘤', duration: '14分43秒', type: '视频' },
+        { num:  99, title: '第三十节 卵巢囊肿', duration: '03分14秒', type: '视频' },
+        { num: 100, title: '第三十一节 卵巢囊腺瘤', duration: '05分25秒', type: '视频' },
+        { num: 101, title: '第三十二节 卵巢癌', duration: '06分36秒', type: '视频' },
+      ],
+      // 第十二章 骨与关节
+      musculoskeletal: [
+        { num: 102, title: '第一节 骨关节总论', duration: '29分09秒', type: '视频' },
+        { num: 103, title: '第二节 骨创伤', duration: '17分00秒', type: '视频' },
+        { num: 104, title: '第三节 骨关节化脓性感染', duration: '15分57秒', type: '视频' },
+        { num: 105, title: '第四节 骨关节结核', duration: '17分12秒', type: '视频' },
+        { num: 106, title: '第五节 骨肿瘤与肿瘤样病变概述', duration: '08分13秒', type: '视频' },
+        { num: 107, title: '第六节 良性骨肿瘤', duration: '17分54秒', type: '视频' },
+        { num: 108, title: '第七节 恶性骨肿瘤', duration: '21分51秒', type: '视频' },
+        { num: 109, title: '第八节 骨肿瘤样病变', duration: '10分00秒', type: '视频' },
+        { num: 110, title: '第九节 慢性关节病', duration: '27分20秒', type: '视频' },
+        { num: 111, title: '第十节 骨缺血性病变', duration: '18分55秒', type: '视频' },
+        { num: 112, title: '第十一节 脊柱疾病', duration: '26分37秒', type: '视频' },
+        { num: 113, title: '第十二节 代谢性骨病', duration: '12分42秒', type: '视频' },
+        { num: 114, title: '第十三节 甲状旁腺功能亢进', duration: '10分03秒', type: '视频' },
+      ],
+      // 放射医师中级必背核心考点
+      core: [
+        { num: 115, title: '第一章 X线成像基础 - 高频考点串讲', duration: '13分40秒', type: '核心考点' },
+        { num: 116, title: '第二节 数字X线成像基础 - 高频考点串讲', duration: '03分46秒', type: '核心考点' },
+        { num: 117, title: '第三章 CT成像基础 - 高频考点串讲', duration: '19分43秒', type: '核心考点' },
+        { num: 118, title: '第四章 MRI成像基础 - 高频考点串讲', duration: '11分29秒', type: '核心考点' },
+        { num: 119, title: '第五章 影像诊断常用对比剂 - 高频考点串讲', duration: '13分43秒', type: '核心考点' },
+        { num: 120, title: '第六章 介入放射学 - 高频考点串讲', duration: '03分56秒', type: '核心考点' },
+        { num: 121, title: '第七章 影像解剖 - 高频考点串讲', duration: '61分14秒', type: '核心考点' },
+        { num: 122, title: '第八章 CNS及头颈部 - 高频高点串讲', duration: '30分00秒', type: '核心考点' },
+        { num: 123, title: '第十章 消化系统 - 高频高点串讲', duration: '28分56秒', type: '核心考点' },
+        { num: 124, title: '第九章 肺部 - 高频高点串讲', duration: '26分47秒', type: '核心考点' },
+        { num: 125, title: '第十一章 泌尿生殖系统 - 高频高点串讲', duration: '18分50秒', type: '核心考点' },
+        { num: 126, title: '第十二章 骨与关节 - 高频高点串讲', duration: '17分20秒', type: '核心考点' },
+        { num: 127, title: '第十三章 其他与肿瘤分期 - 高频高点串讲', duration: '15分38秒', type: '核心考点' },
+      ],
+      // 基础部分视频 2025年小周老师版本
+      basic2025: [
         { num: 128, title: '第一章 X线成像基础（小周老师基础版）', duration: '47分27秒', type: '基础' },
         { num: 129, title: '第二章 数字X线成像基础1：CR原理及临床', duration: '20分17秒', type: '基础' },
         { num: 130, title: '第二章 数字X线成像基础2：DR原理及临床', duration: '16分55秒', type: '基础' },
@@ -1664,138 +1851,17 @@
         { num: 145, title: '第四章 MRI基础：专“题”讲解', duration: '79分41秒', type: '基础' },
         { num: 146, title: '第五章 影像诊断常用对比剂（第一部分）', duration: '44分31秒', type: '基础' },
         { num: 147, title: '第五章 影像诊断常用对比剂（第二部分）', duration: '34分11秒', type: '基础' },
-        { num: 154, title: '第七章 影像解剖 第一节 颅脑解剖', duration: '93分18秒', type: '基础' },
-        { num: 155, title: '第七章 影像解剖 第二节 脊柱解剖', duration: '52分53秒', type: '基础' },
-      ],
-      cns: [
-        { num: 24, title: '第一节 概述', duration: '71分36秒', type: '视频' },
-        { num: 25, title: '第二节 脑血管疾病', duration: '62分36秒', type: '视频' },
-        { num: 26, title: '第三节 脑先天发育畸形', duration: '67分37秒', type: '视频' },
-        { num: 27, title: '第四节 大脑肿瘤', duration: '84分19秒', type: '视频' },
-        { num: 28, title: '第五节 脑外伤', duration: '27分34秒', type: '视频' },
-        { num: 29, title: '第六节 颅内感染', duration: '34分27秒', type: '视频' },
-        { num: 30, title: '第七节 脑白质病变', duration: '12分56秒', type: '视频' },
-        { num: 31, title: '第八节 椎管内肿瘤', duration: '31分41秒', type: '视频' },
-        { num: 37, title: '09.脑出血的影像诊断（方金）', duration: '117分27秒', type: '视频' },
-      ],
-      headneck: [
-        { num: 32, title: '第九节 眼眶', duration: '45分57秒', type: '视频' },
-        { num: 33, title: '第十节 耳与颞骨', duration: '44分22秒', type: '视频' },
-        { num: 34, title: '第十一节 鼻与鼻旁窦', duration: '66分40秒', type: '视频' },
-        { num: 35, title: '第十二节 咽与喉', duration: '31分21秒', type: '视频' },
-        { num: 36, title: '第十三节 涎腺', duration: '14分42秒', type: '视频' },
-      ],
-      respiratory: [
-        { num: 38, title: '第一节 肺的基本病变', duration: '33分55秒', type: '视频' },
-        { num: 39, title: '第二节 气管、支气管病变', duration: '10分42秒', type: '视频' },
-        { num: 40, title: '第三节 肺先天性疾病', duration: '09分55秒', type: '视频' },
-        { num: 41, title: '第四节 肺炎', duration: '33分59秒', type: '视频' },
-        { num: 42, title: '第五节 肺结核', duration: '19分18秒', type: '视频' },
-        { num: 43, title: '第六节 肺肿瘤', duration: '21分12秒', type: '视频' },
-        { num: 44, title: '第七节 结节病', duration: '03分58秒', type: '视频' },
-        { num: 45, title: '第八节 尘肺', duration: '07分11秒', type: '视频' },
-        { num: 46, title: '第九节 胸壁、胸膜病变', duration: '08分06秒', type: '视频' },
-        { num: 47, title: '第十节 纵膈肿瘤', duration: '05分20秒', type: '视频' },
-      ],
-      circulatory: [
-        { num: 48, title: '第十一节 心脏大血管基本病变', duration: '29分37秒', type: '视频' },
-        { num: 49, title: '第十二节 先天性心脏大血管疾病', duration: '53分25秒', type: '视频' },
-        { num: 50, title: '第十三节 获得性心脏病', duration: '35分26秒', type: '视频' },
-        { num: 51, title: '第十四节 心包疾病', duration: '06分09秒', type: '视频' },
-        { num: 52, title: '第十五节 大血管疾病', duration: '10分50秒', type: '视频' },
-      ],
-      digestive: [
-        { num: 53, title: '第一节 消化道基本疾病', duration: '14分54秒', type: '视频' },
-        { num: 54, title: '第二节 食管疾病', duration: '19分55秒', type: '视频' },
-        { num: 55, title: '第三节 胃肠疾病（上）', duration: '36分05秒', type: '视频' },
-        { num: 56, title: '第三节 胃肠疾病（下）', duration: '54分19秒', type: '视频' },
-        { num: 57, title: '第四节 肝良性肿瘤和肿瘤样病变', duration: '11分59秒', type: '视频' },
-        { num: 58, title: '第五节 肝恶性肿瘤', duration: '27分22秒', type: '视频' },
-        { num: 59, title: '第六节 弥漫性肝病', duration: '32分13秒', type: '视频' },
-        { num: 60, title: '第七节 肝脓肿', duration: '09分42秒', type: '视频' },
-        { num: 61, title: '第八节 肝其他病变', duration: '21分59秒', type: '视频' },
-        { num: 62, title: '第九节 胆系结石症', duration: '09分16秒', type: '视频' },
-        { num: 63, title: '第十节 胆囊炎', duration: '06分24秒', type: '视频' },
-        { num: 64, title: '第十一节 胆系肿瘤', duration: '18分17秒', type: '视频' },
-        { num: 65, title: '第十二节 胆系其他病变', duration: '21分49秒', type: '视频' },
-        { num: 66, title: '第十三节 胰腺炎', duration: '13分36秒', type: '视频' },
-        { num: 67, title: '第十四节 胰腺肿瘤', duration: '28分57秒', type: '视频' },
-        { num: 68, title: '第十五节 胰腺先天变异', duration: '06分29秒', type: '视频' },
-        { num: 69, title: '第十六节 脾病变', duration: '17分49秒', type: '视频' },
-      ],
-      urogenital: [
-        { num: 70, title: '第一节 肾先天发育异常和正常变异', duration: '23分49秒', type: '视频' },
-        { num: 71, title: '第二节 肾囊性病变', duration: '09分51秒', type: '视频' },
-        { num: 72, title: '第三节 肾良性肿瘤', duration: '08分21秒', type: '视频' },
-        { num: 73, title: '第四节 肾恶性肿瘤', duration: '18分54秒', type: '视频' },
-        { num: 74, title: '第五节 肾血管性病变', duration: '14分33秒', type: '视频' },
-        { num: 75, title: '第六节 肾感染性病变', duration: '23分17秒', type: '视频' },
-        { num: 76, title: '第七节 肾其他病变', duration: '16分53秒', type: '视频' },
-        { num: 77, title: '第八节 输尿管囊肿', duration: '05分38秒', type: '视频' },
-        { num: 78, title: '第九节 输尿管癌', duration: '06分16秒', type: '视频' },
-        { num: 79, title: '第十节 输尿管结核', duration: '04分05秒', type: '视频' },
-        { num: 80, title: '第十一节 输尿管结石', duration: '04分58秒', type: '视频' },
-        { num: 81, title: '第十二节 膀胱先天发育异常', duration: '07分43秒', type: '视频' },
-        { num: 82, title: '第十三节 膀胱良性肿瘤', duration: '06分32秒', type: '视频' },
-        { num: 83, title: '第十四节 膀胱癌', duration: '09分00秒', type: '视频' },
-        { num: 84, title: '第十五节 膀胱感染性病变', duration: '11分08秒', type: '视频' },
-        { num: 85, title: '第十六节 膀胱结石', duration: '05分26秒', type: '视频' },
-        { num: 86, title: '第十七节 肾上腺囊肿', duration: '02分35秒', type: '视频' },
-        { num: 87, title: '第十八节 肾上腺良性肿瘤', duration: '13分50秒', type: '视频' },
-        { num: 88, title: '第十九节 肾上腺恶性肿瘤', duration: '06分37秒', type: '视频' },
-        { num: 89, title: '第二十节 肾上腺结核', duration: '03分09秒', type: '视频' },
-        { num: 90, title: '第二十一节 肾上腺增生', duration: '05分27秒', type: '视频' },
-        { num: 91, title: '第二十二节 腹膜后恶性肿瘤', duration: '07分09秒', type: '视频' },
-        { num: 92, title: '第二十三节 腹膜后纤维化', duration: '06分51秒', type: '视频' },
-        { num: 93, title: '第二十四节 前列腺癌', duration: '10分11秒', type: '视频' },
-        { num: 94, title: '第二十五节 前列腺感染性病变', duration: '08分51秒', type: '视频' },
-        { num: 95, title: '第二十六节 前列腺增生', duration: '13分40秒', type: '视频' },
-        { num: 96, title: '第二十七节 子宫先天畸形', duration: '02分15秒', type: '视频' },
-        { num: 97, title: '第二十八节 子宫肌瘤', duration: '07分51秒', type: '视频' },
-        { num: 98, title: '第二十九节 子宫恶性肿瘤', duration: '14分43秒', type: '视频' },
-        { num: 99, title: '第三十节 卵巢囊肿', duration: '03分14秒', type: '视频' },
-        { num: 100, title: '第三十一节 卵巢囊腺瘤', duration: '05分25秒', type: '视频' },
-        { num: 101, title: '第三十二节 卵巢癌', duration: '06分36秒', type: '视频' },
-      ],
-      musculoskeletal: [
-        { num: 102, title: '第一节 骨关节总论', duration: '29分09秒', type: '视频' },
-        { num: 103, title: '第二节 骨创伤', duration: '17分00秒', type: '视频' },
-        { num: 104, title: '第三节 骨关节化脓性感染', duration: '15分57秒', type: '视频' },
-        { num: 105, title: '第四节 骨关节结核', duration: '17分12秒', type: '视频' },
-        { num: 106, title: '第五节 骨肿瘤与肿瘤样病变概述', duration: '08分13秒', type: '视频' },
-        { num: 107, title: '第六节 良性骨肿瘤', duration: '17分54秒', type: '视频' },
-        { num: 108, title: '第七节 恶性骨肿瘤', duration: '21分51秒', type: '视频' },
-        { num: 109, title: '第八节 骨肿瘤样病变', duration: '10分00秒', type: '视频' },
-        { num: 110, title: '第九节 慢性关节病', duration: '27分20秒', type: '视频' },
-        { num: 111, title: '第十节 骨缺血性病变', duration: '18分55秒', type: '视频' },
-        { num: 112, title: '第十一节 脊柱疾病', duration: '26分37秒', type: '视频' },
-        { num: 113, title: '第十二节 代谢性骨病', duration: '12分42秒', type: '视频' },
-        { num: 114, title: '第十三节 甲状旁腺功能亢进', duration: '10分03秒', type: '视频' },
-      ],
-      intervention: [
-        { num: 21, title: '第六章 介入放射学1', duration: '64分24秒', type: '视频' },
-        { num: 22, title: '第六章 介入放射学2', duration: '56分16秒', type: '视频' },
         { num: 148, title: '第六章 介入放射学 第一节 总论', duration: '46分58秒', type: '基础' },
         { num: 149, title: '第六章 介入放射学 第二节 胸部', duration: '19分36秒', type: '基础' },
         { num: 150, title: '第六章 介入放射学 第三节 消化系统', duration: '46分07秒', type: '基础' },
         { num: 151, title: '第六章 介入放射学 第四节 泌尿生殖', duration: '29分48秒', type: '基础' },
         { num: 152, title: '第六章 介入放射学 第五节 腹部血管性病变', duration: '35分55秒', type: '基础' },
         { num: 153, title: '第六章 介入放射学 第六节 骨骼肌肉系统', duration: '26分48秒', type: '基础' },
-      ],
-      core: [
-        { num: 115, title: '第一章 X线成像基础 - 高频考点串讲', duration: '13分40秒', type: '核心考点' },
-        { num: 116, title: '第二节 数字X线成像基础 - 高频考点串讲', duration: '03分46秒', type: '核心考点' },
-        { num: 117, title: '第三章 CT成像基础 - 高频考点串讲', duration: '19分43秒', type: '核心考点' },
-        { num: 118, title: '第四章 MRI成像基础 - 高频考点串讲', duration: '11分29秒', type: '核心考点' },
-        { num: 119, title: '第五章 影像诊断常用对比剂 - 高频考点串讲', duration: '13分43秒', type: '核心考点' },
-        { num: 120, title: '第六章 介入放射学 - 高频考点串讲', duration: '03分56秒', type: '核心考点' },
-        { num: 121, title: '第七章 影像解剖 - 高频考点串讲', duration: '61分14秒', type: '核心考点' },
-        { num: 122, title: '第八章 CNS及头颈部 - 高频高点串讲', duration: '30分00秒', type: '核心考点' },
-        { num: 123, title: '第十章 消化系统 - 高频高点串讲', duration: '28分56秒', type: '核心考点' },
-        { num: 124, title: '第九章 肺部 - 高频高点串讲', duration: '26分47秒', type: '核心考点' },
-        { num: 125, title: '第十一章 泌尿生殖系统 - 高频高点串讲', duration: '18分50秒', type: '核心考点' },
-        { num: 126, title: '第十二章 骨与关节 - 高频高点串讲', duration: '17分20秒', type: '核心考点' },
-        { num: 127, title: '第十三章 其他与肿瘤分期 - 高频高点串讲', duration: '15分38秒', type: '核心考点' },
+        { num: 154, title: '第七章 影像解剖 第一节 颅脑解剖', duration: '93分18秒', type: '基础' },
+        { num: 155, title: '第七章 影像解剖 第二节 脊柱解剖', duration: '52分53秒', type: '基础' },
+        { num: 156, title: '第156节 待补充标题', duration: '待补充', type: '待补充' },
+        { num: 157, title: '第157节 待补充标题', duration: '待补充', type: '待补充' },
+        { num: 158, title: '第158节 待补充标题', duration: '待补充', type: '待补充' },
       ],
     };
 
@@ -3897,7 +3963,7 @@
       if (elQ) elQ.textContent = p.questions;
       if (elC) elC.textContent = p.core;
       // 总体进度: 视频占比40% + 做题占比45% + Core占比15%
-      var pct = Math.round((p.videos / 157 * 0.4 + p.questions / 4500 * 0.45 + p.core / 66 * 0.15) * 100);
+      var pct = Math.round((p.videos / 158 * 0.4 + p.questions / 4500 * 0.45 + p.core / 66 * 0.15) * 100);
       var elPct = document.getElementById('progress-percent');
       var elBar = document.getElementById('progress-bar');
       if (elPct) elPct.textContent = pct + '%';
@@ -3905,7 +3971,7 @@
     }
     function logProgress(type, count) {
       var p = getProgress();
-      if (type === 'video') { p.videos = Math.min(p.videos + count, 157); addStudyTime(28 * count); }
+      if (type === 'video') { p.videos = Math.min(p.videos + count, 158); addStudyTime(28 * count); }
       else if (type === 'question') { p.questions = Math.min(p.questions + count, 4500); addStudyTime(Math.round(count * 1.37)); }
       else if (type === 'core') { p.core = Math.min(p.core + count, 66); addStudyTime(30 * count); }
       saveProgress(p);
@@ -4106,7 +4172,7 @@
       container.innerHTML = list.map(function(v, i) {
         var dur = parseDuration(v.duration);
         var durLabel = dur > 0 ? dur + 'min' : '0min';
-        var durDisplay = (v.type === '图文' || v.type === '直播') ? v.duration : (v.duration + ' (' + durLabel + ')');
+        var durDisplay = (v.type === '图文' || v.type === '直播' || v.type === '待补充') ? v.duration : (v.duration + ' (' + durLabel + ')');
         var timeToAdd = 0;
         if (v.type === '视频' || v.type === '基础' || v.type === '核心考点') {
           timeToAdd = dur > 0 ? dur : 15;
@@ -4192,10 +4258,29 @@
       if (activeLi2) renderVideos(activeLi2.dataset.system);
     }
 
+    // Map new chapter keys to old shortData/panelData content keys
+    var chapterContentMap = {
+      trial: ['intro'], errata: ['intro'], notice: ['intro'],
+      xray: ['tech'], dxray: ['tech'], ct: ['tech'], mri: ['tech'], contrast: ['tech'], anatomy: ['tech'],
+      intervention: ['intervention'],
+      cns_headneck: ['cns','headneck'],
+      chest: ['respiratory','circulatory'],
+      digestive: ['digestive'],
+      urogenital: ['urogenital'],
+      musculoskeletal: ['musculoskeletal'],
+      core: ['core'],
+      basic2025: ['tech']
+    };
+
     function renderShort(system) {
-      const shortHtml = shortData[system] || '';
-      const panelDiseases = panelData[system] && panelData[system].diseases;
-      let html = shortHtml;
+      var keys = chapterContentMap[system] || [system];
+      var shortHtml = '';
+      var panelDiseases = '';
+      keys.forEach(function(k){
+        if (shortData[k]) shortHtml += shortData[k];
+        if (panelData[k] && panelData[k].diseases) panelDiseases += panelData[k].diseases;
+      });
+      var html = shortHtml;
       if (panelDiseases && panelDiseases.indexOf('placeholder-note') === -1) {
         html += '<h4 style="margin:24px 0 12px;color:var(--text-primary)">补充速览卡片</h4>' + panelDiseases;
       }
@@ -9870,8 +9955,26 @@
 
     ];
 
+    // Map new chapter keys to disease manual 's' categories
+    var chapterDiseaseMap = {
+      intervention: ['intervention'],
+      cns_headneck: ['cns','headneck'],
+      chest: ['respiratory','circulatory'],
+      digestive: ['digestive'],
+      urogenital: ['urogenital'],
+      musculoskeletal: ['musculoskeletal']
+    };
+
     function renderPanels(system) {
-      var data = panelData[system] || {};
+      var keys = chapterContentMap[system] || [system];
+      var data = {anatomy:'', diseases:'', differential:'', mistakes:''};
+      keys.forEach(function(k){
+        var d = panelData[k] || {};
+        if (d.anatomy) data.anatomy += d.anatomy;
+        if (d.diseases) data.diseases += d.diseases;
+        if (d.differential) data.differential += d.differential;
+        if (d.mistakes) data.mistakes += d.mistakes;
+      });
       var anatomyEl = document.getElementById('panel-anatomy');
       var diseasesEl = document.getElementById('panel-diseases');
       var differentialEl = document.getElementById('panel-differential');
@@ -9895,7 +9998,8 @@
       }
 
       // 疾病诊断：优先渲染diseaseManual详细卡片，compact卡片作为补充
-      var sysDiseases = diseaseManual.filter(function(d){ return d.s === system; });
+      var diseaseSystems = chapterDiseaseMap[system] || [];
+      var sysDiseases = diseaseManual.filter(function(d){ return diseaseSystems.indexOf(d.s) >= 0; });
       var diseaseHTML = '<h3>疾病诊断要点</h3>';
       if (sysDiseases.length > 0) {
         diseaseHTML += '<div class="exam-disease-intro">📋 以下为详细疾病专题，点击标题展开完整内容（解剖→临床→病理→影像→鉴别）</div>';

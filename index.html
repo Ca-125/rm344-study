@@ -703,6 +703,90 @@
       line-height: 1.4;
     }
 
+    /* ===== Notes (三星笔记同步) ===== */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .note-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .note-card:hover, .note-card:active {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.12);
+    }
+    .note-card-thumb {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      object-position: top;
+      border-bottom: 1px solid var(--border);
+      background: #f0f0f0;
+    }
+    .note-card-info {
+      padding: 10px 12px;
+    }
+    .note-card-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .note-card-title {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .note-viewer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.9);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .note-viewer.active { display: block; }
+    .note-viewer-bar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      z-index: 10;
+    }
+    .note-viewer-bar span { font-size: 14px; font-weight: 600; }
+    .note-viewer-close {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .note-viewer img {
+      display: block;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .notes-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-secondary);
+    }
+    .notes-empty-icon { font-size: 48px; margin-bottom: 12px; }
+
     @media (max-width: 768px) {
       html, body {
         height: auto !important;
@@ -850,10 +934,20 @@
         <li data-view="topics"><span class="icon">🧭</span> 纵向专题</li>
         <li data-view="scoring"><span class="icon">📐</span> 报告规范与评分</li>
         <li data-view="templates"><span class="icon">📋</span> 十大肿瘤书写模板</li>
+        <li data-view="notes"><span class="icon">📒</span> 笔记</li>
       </ul>
     </aside>
 
     <div class="mobile-overlay" id="mobile-overlay" onclick="closeSidebar()"></div>
+
+    <!-- ===== Note Full-Screen Viewer ===== -->
+    <div class="note-viewer" id="note-viewer">
+      <div class="note-viewer-bar">
+        <span id="note-viewer-title">笔记</span>
+        <button class="note-viewer-close" onclick="closeNoteViewer()">✕</button>
+      </div>
+      <img id="note-viewer-img" src="" alt="笔记" />
+    </div>
 
     <main class="main">
       <div class="mobile-header">
@@ -911,6 +1005,11 @@
             <div class="home-tile-icon">📋</div>
             <div class="home-tile-title">十大肿瘤模板</div>
             <div class="home-tile-sub">标准化报告模板</div>
+          </div>
+          <div class="home-tile" onclick="goToView('global','notes')">
+            <div class="home-tile-icon">📒</div>
+            <div class="home-tile-title">笔记</div>
+            <div class="home-tile-sub">三星笔记同步</div>
           </div>
         </div>
       </div>
@@ -1397,6 +1496,21 @@
           参考陕西省抗癌协会标准。点击各模板可展开/折叠，复制后可直接用于临床报告书写。
         </p>
         <div id="templates-list"></div>
+      </div>
+
+      <!-- ===== NOTES VIEW (三星笔记同步) ===== -->
+      <div class="content" id="notes-view" style="display:none">
+        <h2 style="margin-top:0">📒 我的笔记</h2>
+        <p style="color:var(--text-secondary);font-size:13px;margin-bottom:14px">
+          三星平板笔记长截图自动同步。点击可全屏查看。
+        </p>
+        <div id="notes-container">
+          <div class="notes-empty">
+            <div class="notes-empty-icon">📒</div>
+            <p>暂无笔记</p>
+            <p style="font-size:12px;margin-top:6px">在三星平板做好笔记 → 截图 → 发给AI助手即可同步</p>
+          </div>
+        </div>
       </div>
     </main>
   </div>
@@ -3828,6 +3942,7 @@
     const topicsView = document.getElementById('topics-view');
     const scoringView = document.getElementById('scoring-view');
     const templatesView = document.getElementById('templates-view');
+    const notesView = document.getElementById('notes-view');
     const homeView = document.getElementById('home-view');
     const zhongjiView = document.getElementById('zhongji-view');
     const mobileBackBtn = document.getElementById('mobile-back-btn');
@@ -3848,6 +3963,7 @@
       topicsView.style.display = 'none';
       scoringView.style.display = 'none';
       templatesView.style.display = 'none';
+      notesView.style.display = 'none';
     }
 
     function setActiveNav(el) {
@@ -9725,6 +9841,7 @@
       if (view === 'topics') { topicsView.style.display = 'block'; renderTopics(); }
       if (view === 'scoring') { scoringView.style.display = 'block'; renderScoring(); }
       if (view === 'templates') { templatesView.style.display = 'block'; renderTemplates(); }
+      if (view === 'notes') { notesView.style.display = 'block'; renderNotes(); }
       pageTitle.textContent = li.textContent.trim();
     });
 
@@ -9780,6 +9897,55 @@
           .then(reg => console.log('SW registered:', reg.scope))
           .catch(err => console.log('SW registration failed:', err));
       });
+    }
+
+    // ===== Notes (三星笔记同步) =====
+    function renderNotes() {
+      var container = document.getElementById('notes-container');
+      container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">⏳</div><p>正在加载笔记…</p></div>';
+      fetch('notes/index.json?v=' + Date.now())
+        .then(function(r) {
+          if (!r.ok) throw new Error('fetch failed');
+          return r.json();
+        })
+        .then(function(data) {
+          var notes = data.notes || [];
+          if (notes.length === 0) {
+            container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">📒</div><p>暂无笔记</p><p style="font-size:12px;margin-top:6px">在三星平板做好笔记 → 截图 → 发给AI助手即可同步</p></div>';
+            return;
+          }
+          notes.sort(function(a, b) { return b.date.localeCompare(a.date); });
+          var html = '<div class="notes-grid">';
+          notes.forEach(function(n) {
+            html += '<div class="note-card" onclick="openNoteViewer(\'' + n.image + '\', \'' + (n.title || n.date) + '\')">' +
+              '<img class="note-card-thumb" src="' + n.image + '" alt="' + (n.title || n.date) + '" loading="lazy" />' +
+              '<div class="note-card-info">' +
+              '<div class="note-card-date">' + n.date + '</div>' +
+              (n.title ? '<div class="note-card-title">' + n.title + '</div>' : '') +
+              '</div></div>';
+          });
+          html += '</div>';
+          container.innerHTML = html;
+        })
+        .catch(function() {
+          container.innerHTML = '<div class="notes-empty"><div class="notes-empty-icon">📒</div><p>暂无笔记</p><p style="font-size:12px;margin-top:6px">在三星平板做好笔记 → 截图 → 发给AI助手即可同步</p></div>';
+        });
+    }
+    function openNoteViewer(src, title) {
+      var viewer = document.getElementById('note-viewer');
+      var img = document.getElementById('note-viewer-img');
+      var titleEl = document.getElementById('note-viewer-title');
+      img.src = src;
+      titleEl.textContent = title || '笔记';
+      viewer.classList.add('active');
+      viewer.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeNoteViewer() {
+      var viewer = document.getElementById('note-viewer');
+      viewer.classList.remove('active');
+      document.getElementById('note-viewer-img').src = '';
+      document.body.style.overflow = '';
     }
 
     // Init
